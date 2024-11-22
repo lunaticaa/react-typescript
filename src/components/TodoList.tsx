@@ -8,17 +8,28 @@ interface TodoListProps{
   onDelete: (id: number) => void;
 }
 function TodoList({todos, onDelete, onCompletedChange}: TodoListProps) {
-  const todosSorted = todos.sort()
+  const todosSorted = todos.sort((a,b) => {
+    if (a.completed === b.completed){
+      return b.id - a.id;
+    }
+    return a.completed ? 1 : -1
+  })
   return (
+    <>
     <div className="space-y-2">
-        {todos.map((todo) =>(
+        {todosSorted.map((todo) =>(
             <TodoItem todo={todo}
             key={todo.id}
             onCompletedChange={onCompletedChange}
+            onDelete={onDelete}
             />
         ))}
             
     </div>
+    {todos.length === 0 && (
+      <p className='text-center text-sm text-gray-500'>No todos here add a new one</p>
+    )}
+    </>
   )
 }
 

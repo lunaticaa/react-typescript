@@ -21,14 +21,19 @@ function App() {
       ...prevAddTodo
     ])
   }
+  function deleteTodo(id: number){
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+  }
 
   return (
     <>
-      <main className="py-10 h-screen space-y-5">
+      <main className="py-10 h-screen space-y-5 overflow-y-auto">
         <h1 className="font-bold text-3xl text-center">todo list</h1>
         <div className="max-w-lg mx-auto bg-slate-400 rounded-md p-5 space-y-6">
           <AddTodoForm onSubmit={addTodo}/>
-          <TodoList todos={todos} onCompletedChange={setTodoCompleted}/>
+          <TodoList todos={todos} onCompletedChange={setTodoCompleted}
+          onDelete={deleteTodo}
+          />
           
         </div>
       </main>
