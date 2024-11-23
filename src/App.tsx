@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { dummyData } from "./data/todos"
 import AddTodoForm from "./components/AddTodoForm"
 import TodoList from "./components/TodoList"
@@ -6,6 +6,9 @@ import TodoSummary from "./components/TodoSummary"
 
 function App() {
   const [todos, setTodos] = useState(dummyData)
+  useEffect(()=>{
+    localStorage.setItem("todos", JSON.stringify(todos))
+  },[])
   function setTodoCompleted(id: number, completed: boolean){
     setTodos((prevTodos) => prevTodos.map(todo => (
       todo.id === id ? {...todo, completed} : todo
@@ -14,7 +17,7 @@ function App() {
   function addTodo(title: string){
     setTodos(prevAddTodo => [
       {
-        id: prevAddTodo.length + 1,
+        id: Date.now(),
         title,
         completed: false
       },
