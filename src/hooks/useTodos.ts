@@ -32,4 +32,11 @@ export default function useTodos(){
   function deleteAllCompletedTodos(){
     setTodos(prevTodos => prevTodos.filter(todo => !todo.completed))
   }
+  return{
+    todos,
+    setTodoCompleted,
+    deleteTodo,
+    addTodo,
+    deleteAllCompletedTodos,
+  }
 }
